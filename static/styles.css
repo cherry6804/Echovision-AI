@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.content-box {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.content-box:hover {
+    transform: scale(1.05);
+}
+
+.video-fluid {
+    width: 100%;
+    max-height: 300px;
+}
+
+.footer {
+    font-size: 14px;
+}

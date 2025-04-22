@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echovision AI - Predictive Deep Learning Framework for Cardiovascular Diagnostics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        html, body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .content-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .video-fluid {
+            width: 100%;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header text-center p-3 bg-dark text-white">
+        <h1>Echovision AI - Predictive Deep Learning Framework for Cardiovascular Diagnostics</h1>
+    </header>
+
+    <main class="main-content container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="content-box p-3">
+                    <h2>About Echovision AI</h2>
+                    <p>Echovision AI is an advanced system for echocardiogram analysis, using deep learning to provide accurate predictions.</p>
+                    <p>By leveraging artificial intelligence and state-of-the-art deep learning algorithms, Echovision AI assists cardiologists in diagnosing heart conditions with greater efficiency and accuracy. It reduces the time required for analysis and enhances decision-making by providing real-time insights.</p>
+                    <p>The system is designed to be user-friendly, allowing seamless integration into medical workflows. It supports various echocardiogram formats and provides clear visualizations and interpretative results.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="content-box p-3">
+                    <h2>How It Works</h2>
+                    <p>The AI system processes echocardiograms to detect abnormalities, classify heart conditions, and provide prognosis insights.</p>
+                    <p>Using a combination of convolutional neural networks (CNNs) and recurrent neural networks (RNNs), Echovision AI extracts key features from echocardiogram frames. These features are then analyzed to determine potential cardiac issues.</p>
+                    <p>The system also provides risk factor interpretation and a graphical representation of the ejection fraction, helping doctors make informed decisions. Additionally, users can extract and display key video frames to better understand heart movement.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 text-center">
+                <video class="video-fluid rounded shadow" controls>
+                    <source src="{{ url_for('static', filename='video1.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{{ url_for('static', filename='image1.jpeg') }}" alt="Echocardiogram" class="img-fluid rounded shadow">
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-center">
+            <div class="col-md-4 text-center">
+                <div class="content-box p-3">
+                    <h2>Predict</h2>
+                    <a href="{{ url_for('open_predict') }}" class="btn btn-primary">Go to Prediction</a>
+                </div>
+            </div>
+        </div>
+        <br>
+    </main>
+
+    <footer class="footer">
+        &copy; 2025 Echovision AI. All rights reserved.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

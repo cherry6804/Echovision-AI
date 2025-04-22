@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echovision AI - Cardiovascular Diagnostics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .content-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        #results {
+            display: none;
+        }
+        #chart, #extractedFrames {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header text-center p-3 bg-dark text-white">
+        <h1>Echovision AI - Predictive Deep Learning Framework for Cardiovascular Dignostics</h1>
+    </header>
+    <br>
+    <div class="container content">
+        <div class="content-box">
+            <h2>Upload Echocardiogram Video</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="videoUpload" name="file" accept="video/*" required class="form-control">
+                <br>
+                <button type="submit" class="btn btn-primary">Predict</button>
+            </form>
+        </div>
+
+        <div id="results" class="content-box mt-3">
+            <h3>Prediction Result</h3>
+            <p><strong>Risk Factor:</strong> <span id="riskFactor"></span></p>
+            <p><strong>Ejection Fraction:</strong> <span id="ejectionFraction"></span>%</p>
+            <img id="chart" src="" alt="Prediction Chart">
+            <h3 class="mt-3">Extracted Frames</h3>
+            <img id="extractedFrames" src="" alt="Extracted Frames">
+        </div>
+
+        <p id="errorMessage" class="text-danger text-center mt-2" style="display: none;"></p>
+    </div>
+    <br>
+    <footer class="footer">
+        &copy; 2025 Echovision AI. All rights reserved.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            let formData = new FormData();
+            let fileInput = document.getElementById('videoUpload');
+            if (fileInput.files.length === 0) {
+                alert("Please select a video file.");
+                return;
+            }
+            
+            formData.append("file", fileInput.files[0]);
+    
+            fetch('/predict', {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('errorMessage').innerText = data.error;
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('results').style.display = 'none';
+                } else {
+                    document.getElementById('errorMessage').style.display = 'none';
+                    document.getElementById('riskFactor').innerText = data.risk;
+                    document.getElementById('ejectionFraction').innerText = data.average_ef;
+                    document.getElementById('chart').src = data.chart;
+                    document.getElementById('chart').style.display = 'block';
+                    document.getElementById('extractedFrames').src = data.frames;
+                    document.getElementById('extractedFrames').style.display = 'block';
+                    document.getElementById('results').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').innerText = "An error occurred while processing the request.";
+                document.getElementById('errorMessage').style.display = 'block';
+            });
+        });
+    </script>
+
+</body>
+</html>
